@@ -32,7 +32,7 @@ function clearBox(elementID)
 }
 
 function drawHistogram(tempAccessor) {
-    //Accessor
+
     const yAccessor = d => d.length;
 
 
