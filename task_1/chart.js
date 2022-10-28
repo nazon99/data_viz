@@ -24,8 +24,10 @@ async function buildPlot(){
 
     const x_label = "Month";
     const y_label = "Temperature";
+    const temperatureMin = (d) => d.temperatureMin;
+    const temperatureHigh = (d) => d.temperatureHigh;
+    const dates = (d) => dateParser(d.date);
 
-    // add y label
     svg
         .append("text")
         .attr("text-anchor", "right")
@@ -37,7 +39,7 @@ async function buildPlot(){
         )
         .style("font-size", "24px")
         .text(y_label);
-    // add x label
+
     svg
         .append("text")
         .attr("class", "svg_title")
@@ -48,9 +50,7 @@ async function buildPlot(){
         .text(x_label);
 
 
-    const temperatureMin = (d) => d.temperatureMin;
-    const temperatureHigh = (d) => d.temperatureHigh;
-    const dates = (d) => dateParser(d.date);
+
 
     const yAxismin = d3.scaleLinear()
         .domain(d3.extent(data,temperatureMin))
@@ -80,7 +80,7 @@ async function buildPlot(){
         .attr("stroke-width", 2).attr('d', minimal(data)).attr('stroke', 'green');
 
     svg.append('path').attr("fill", "none").attr("stroke", "steelblue")
-        .attr("stroke-width", 2).attr('d', maximal(data)).attr('stroke', 'red');
+        .attr("stroke-width", 2).attr('d', maximal(data)).attr('stroke', 'black');
 
     const x_axis = d3.axisBottom()
         .scale(x_scaler);
@@ -95,8 +95,6 @@ async function buildPlot(){
         .append("g")
         .attr("transform", `translate(0,${dimension.height - dimension.margin.bottom - dimension.margin.top})`)
         .call(x_axis);
-
-// add y axis
     svg
         .append("g")
         .attr("transform", `translate(${dimension.margin.left},0)`)
